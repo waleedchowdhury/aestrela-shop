@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aestr&eacute;la — Luxury Womenswear</title>
+<meta name="description" content="Aestréla — Luxury womenswear handcrafted in Florence. Shop celestial fashion pieces including gowns, coats and dresses.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<!-- PayPal SDK — replace YOUR_CLIENT_ID with your actual PayPal client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=GBP&intent=capture" crossorigin="anonymous"></script>
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --cream:#F5F0E8; --warm-white:#FAF8F4; --charcoal:#1A1916;
+  --gold:#C9A96E; --gold-light:#E8D5A3; --muted:#8A8278;
+  --border:rgba(26,25,22,0.12); --error:#c0392b; --success:#2d7a4f;
+  --focus:#005fcc;
+}
+
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Montserrat',sans-serif;
+  background:var(--cream); color:var(--charcoal);
+  overflow-x:hidden; cursor:none;
+}
+
+/* ===== ACCESSIBILITY ===== */
+.skip-link {
+  position:absolute; top:-100px; left:1rem; z-index:99999;
+  background:var(--charcoal); color:var(--cream);
+  padding:0.75rem 1.5rem; font-size:0.75rem; letter-spacing:0.1em;
+  text-decoration:none; text-transform:uppercase;
+  transition:top 0.2s;
+  border-radius:0 0 4px 4px;
+}
+.skip-link:focus { top:0; }
+
+:focus-visible {
+  outline:3px solid var(--focus) !important;
+  outline-offset:3px !important;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor {
+  width:8px; height:8px; background:var(--charcoal);
+  border-radius:50%; position:fixed; pointer-events:none;
+  z-index:9999; transition:transform 0.2s ease;
+}
+.cursor-ring {
+  width:32px; height:32px; border:1px solid var(--charcoal);
+  border-radius:50%; position:fixed; pointer-events:none;
+  z-index:9998; transition:all 0.15s ease;
+  transform:translate(-12px,-12px);
+}
+
+/* ===== NAV ===== */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.5rem 4rem;
+}
+nav::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to bottom,rgba(245,240,232,0.97) 0%,rgba(245,240,232,0) 100%);
+  pointer-events:none;
+}
+.nav-logo {
+  font-family:'Cormorant Garamond',serif; font-size:1.6rem;
+  font-weight:300; letter-spacing:0.15em; color:var(--charcoal);
+  text-transform:lowercase; position:relative; text-decoration:none;
+}
+.nav-logo span { font-style:italic; color:var(--gold); }
+.nav-links {
+  display:flex; gap:3rem; list-style:none;
+  font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase;
+  position:relative;
+}
+.nav-links a {
+  text-decoration:none; color:var(--charcoal);
+  opacity:0.7; transition:opacity 0.3s;
+}
+.nav-links a:hover, .nav-links a:focus { opacity:1; }
+.nav-right {
+  display:flex; gap:1.5rem; align-items:center;
+  font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase;
+  position:relative;
+}
+.nav-right a {
+  text-decoration:none; color:var(--charcoal);
+  opacity:0.7; transition:opacity 0.3s;
+}
+.nav-right a:hover, .nav-right a:focus { opacity:1; }
+
+#cart-btn {
+  background:none; border:none; font-family:'Montserrat',sans-serif;
+  font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--charcoal); cursor:none; opacity:0.7; transition:opacity 0.3s;
+  display:flex; align-items:center; gap:0.4rem; padding:0;
+}
+#cart-btn:hover, #cart-btn:focus { opacity:1; }
+.cart-badge {
+  background:var(--gold); color:var(--charcoal);
+  border-radius:50%; width:18px; height:18px;
+  font-size:0.5rem; font-weight:500;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform 0.2s;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height:100vh; display:grid;
+  grid-template-columns:1fr 1fr;
+  position:relative; overflow:hidden;
+}
+.hero-left {
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:8rem 3rem 5rem 4rem; position:relative; z-index:2;
+}
+.hero-eyebrow {
+  font-size:0.6rem; letter-spacing:0.35em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:1.5rem;
+  display:flex; align-items:center; gap:1rem;
+}
+.hero-eyebrow::before {
+  content:''; display:block; width:40px; height:1px; background:var(--gold);
+}
+.hero-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,6vw,5.5rem);
+  font-weight:300; line-height:1.05; letter-spacing:-0.01em; margin-bottom:2rem;
+}
+.hero-title em { font-style:italic; color:var(--gold); }
+.hero-sub {
+  font-size:0.7rem; letter-spacing:0.15em; line-height:2;
+  color:var(--muted); max-width:280px; margin-bottom:3rem;
+  text-transform:uppercase;
+}
+.hero-cta { display:flex; gap:1.5rem; align-items:center; }
+.btn-primary {
+  background:var(--charcoal); color:var(--cream); border:none;
+  padding:1rem 2.5rem; font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  cursor:none; transition:background 0.3s,transform 0.3s;
+  text-decoration:none; display:inline-block;
+}
+.btn-primary:hover, .btn-primary:focus { background:var(--gold); transform:translateY(-2px); }
+.btn-ghost {
+  font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--charcoal); text-decoration:none;
+  display:flex; align-items:center; gap:0.7rem;
+  opacity:0.6; transition:opacity 0.3s; background:none; border:none; cursor:none;
+}
+.btn-ghost::after {
+  content:''; display:block; width:30px; height:1px;
+  background:currentColor; transition:width 0.3s;
+}
+.btn-ghost:hover, .btn-ghost:focus { opacity:1; }
+.btn-ghost:hover::after, .btn-ghost:focus::after { width:50px; }
+.hero-right { position:relative; overflow:hidden; }
+.hero-image-area {
+  position:absolute; inset:0; background:var(--charcoal);
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-image-placeholder {
+  width:100%; height:100%;
+  background:linear-gradient(160deg,#2a2720 0%,#1A1916 50%,#0f0e0c 100%);
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.hero-image-placeholder::before {
+  content:''; position:absolute; width:300px; height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,169,110,0.15) 0%,transparent 70%);
+  top:30%; left:50%; transform:translate(-50%,-50%);
+}
+.hero-number {
+  position:absolute; right:2rem; bottom:5rem;
+  font-family:'Cormorant Garamond',serif; font-size:8rem;
+  font-weight:300; color:rgba(255,255,255,0.04);
+  line-height:1; letter-spacing:-0.05em; pointer-events:none;
+}
+.star-dec {
+  position:absolute; color:var(--gold); opacity:0.3;
+  animation:float 6s ease-in-out infinite; font-size:1rem;
+  aria-hidden:true;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+/* ===== MARQUEE ===== */
+.marquee-section {
+  background:var(--charcoal); color:var(--cream);
+  padding:1.2rem 0; overflow:hidden; white-space:nowrap; display:flex;
+}
+.marquee-track { display:inline-flex; animation:marquee 18s linear infinite; }
+.marquee-item {
+  font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  padding:0 3rem; opacity:0.7; display:flex; align-items:center; gap:3rem;
+}
+.marquee-dot {
+  width:4px; height:4px; border-radius:50%;
+  background:var(--gold); display:inline-block;
+}
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ===== COLLECTIONS ===== */
+.collections { padding:8rem 4rem; }
+.section-header {
+  display:flex; align-items:flex-end; justify-content:space-between;
+  margin-bottom:4rem;
+}
+.section-label {
+  font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:1rem;
+  display:flex; align-items:center; gap:0.8rem;
+}
+.section-label::before {
+  content:''; display:block; width:20px; height:1px; background:var(--gold);
+}
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3.5rem); font-weight:300; line-height:1.1;
+}
+.section-link {
+  font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--charcoal); text-decoration:none;
+  display:flex; align-items:center; gap:0.7rem;
+  opacity:0.6; transition:opacity 0.3s;
+  padding-bottom:0.3rem; border-bottom:1px solid var(--border);
+  margin-bottom:0.5rem;
+}
+.section-link:hover, .section-link:focus { opacity:1; border-color:var(--charcoal); }
+.collection-grid {
+  display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:1.5rem;
+}
+.product-card {
+  position:relative; overflow:hidden; cursor:none;
+}
+.product-card:hover .product-overlay,
+.product-card:focus-within .product-overlay { opacity:1; }
+.product-card:hover .product-image-bg { transform:scale(1.04); }
+.product-image {
+  position:relative; overflow:hidden; aspect-ratio:3/4;
+  background:var(--charcoal);
+}
+.product-image-bg {
+  position:absolute; inset:0;
+  transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.product-overlay {
+  position:absolute; inset:0; background:rgba(26,25,22,0.5);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 0.4s;
+}
+.add-to-bag {
+  background:var(--cream); color:var(--charcoal); border:none;
+  padding:0.85rem 2rem; font-family:'Montserrat',sans-serif;
+  font-size:0.55rem; letter-spacing:0.25em; text-transform:uppercase;
+  cursor:none; transition:background 0.3s;
+}
+.add-to-bag:hover, .add-to-bag:focus { background:var(--gold-light); }
+.product-tag {
+  position:absolute; top:1rem; left:1rem;
+  background:var(--gold); color:var(--charcoal);
+  font-size:0.5rem; letter-spacing:0.2em; text-transform:uppercase;
+  padding:0.3rem 0.7rem;
+}
+.product-info { padding:1.2rem 0 0; }
+.product-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem; font-weight:400; margin-bottom:0.4rem;
+}
+.product-material {
+  font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:0.6rem;
+}
+.product-price { font-size:0.75rem; letter-spacing:0.1em; font-weight:500; }
+.bg-noir { background:linear-gradient(160deg,#1e1d1a 0%,#111009 100%); }
+.bg-sand { background:linear-gradient(160deg,#d4c4a8 0%,#bfad90 100%); }
+.bg-slate { background:linear-gradient(160deg,#3a3830 0%,#2a2822 100%); }
+
+/* ===== FEATURE STRIP ===== */
+.feature-strip {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+}
+.feature-item {
+  padding:3rem 2.5rem; display:flex; flex-direction:column; gap:0.8rem;
+  border-right:1px solid var(--border); transition:background 0.3s;
+}
+.feature-item:last-child { border-right:none; }
+.feature-item:hover { background:rgba(201,169,110,0.05); }
+.feature-icon { font-size:1.2rem; margin-bottom:0.3rem; opacity:0.7; }
+.feature-label { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); }
+.feature-desc { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:400; line-height:1.5; }
+
+/* ===== EDITORIAL ===== */
+.editorial {
+  display:grid; grid-template-columns:1fr 1fr;
+  min-height:70vh; margin:0 4rem 8rem;
+  border:1px solid var(--border);
+}
+.editorial-image { background:var(--charcoal); position:relative; overflow:hidden; }
+.editorial-image-bg {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,#1a1916 0%,#0d0c0a 100%);
+  display:flex; align-items:center; justify-content:center;
+}
+.editorial-content {
+  padding:5rem; display:flex; flex-direction:column; justify-content:center;
+  background:var(--warm-white);
+}
+.editorial-quote {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,3vw,2.4rem); font-weight:300; font-style:italic;
+  line-height:1.4; margin-bottom:2.5rem; color:var(--charcoal);
+}
+.editorial-quote strong { font-style:normal; font-weight:300; color:var(--gold); }
+.editorial-body {
+  font-size:0.7rem; line-height:2.2; letter-spacing:0.05em;
+  color:var(--muted); max-width:380px; margin-bottom:2.5rem;
+}
+
+/* ===== INSTAGRAM ===== */
+.instagram-section { padding:0 4rem 8rem; }
+.insta-grid {
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:0.8rem; margin-top:3rem;
+}
+.insta-tile {
+  aspect-ratio:1; position:relative; overflow:hidden; cursor:none;
+}
+.insta-tile:hover .insta-overlay,
+.insta-tile:focus-within .insta-overlay { opacity:1; }
+.insta-tile:hover .insta-bg { transform:scale(1.06); }
+.insta-bg { position:absolute; inset:0; transition:transform 0.5s ease; }
+.insta-overlay {
+  position:absolute; inset:0; background:rgba(26,25,22,0.6);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 0.4s; font-size:0.55rem;
+  letter-spacing:0.25em; text-transform:uppercase; color:var(--cream);
+}
+
+/* ===== NEWSLETTER ===== */
+.newsletter {
+  background:var(--charcoal); color:var(--cream);
+  padding:7rem 4rem; text-align:center; position:relative; overflow:hidden;
+}
+.newsletter::before {
+  content:'aestréla'; position:absolute;
+  font-family:'Cormorant Garamond',serif; font-size:18vw;
+  font-weight:300; letter-spacing:-0.03em; opacity:0.03;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  white-space:nowrap; pointer-events:none; aria-hidden:true;
+}
+.newsletter-label {
+  font-size:0.55rem; letter-spacing:0.35em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:1.5rem;
+}
+.newsletter-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3.5rem); font-weight:300; line-height:1.2;
+  margin-bottom:1rem; position:relative;
+}
+.newsletter-sub {
+  font-size:0.65rem; letter-spacing:0.1em; color:rgba(245,240,232,0.5);
+  margin-bottom:3rem; position:relative;
+}
+.newsletter-form {
+  display:flex; max-width:480px; margin:0 auto; position:relative;
+}
+.newsletter-input {
+  flex:1; background:transparent;
+  border:1px solid rgba(245,240,232,0.2); border-right:none;
+  padding:1rem 1.5rem; font-family:'Montserrat',sans-serif;
+  font-size:0.65rem; letter-spacing:0.1em; color:var(--cream); outline:none;
+  transition:border-color 0.3s;
+}
+.newsletter-input::placeholder { color:rgba(245,240,232,0.3); }
+.newsletter-input:focus { border-color:var(--gold); }
+.newsletter-btn {
+  background:var(--gold); color:var(--charcoal); border:1px solid var(--gold);
+  padding:1rem 2rem; font-family:'Montserrat',sans-serif;
+  font-size:0.55rem; letter-spacing:0.25em; text-transform:uppercase;
+  cursor:none; transition:background 0.3s; font-weight:500;
+}
+.newsletter-btn:hover, .newsletter-btn:focus { background:var(--gold-light); }
+
+/* ===== FOOTER ===== */
+footer { background:#0f0e0c; color:rgba(245,240,232,0.6); padding:5rem 4rem 3rem; }
+.footer-top {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:4rem;
+  margin-bottom:4rem; padding-bottom:4rem;
+  border-bottom:1px solid rgba(245,240,232,0.08);
+}
+.footer-brand {
+  font-family:'Cormorant Garamond',serif; font-size:1.8rem;
+  font-weight:300; color:var(--cream); letter-spacing:0.1em; margin-bottom:1.2rem;
+}
+.footer-brand span { font-style:italic; color:var(--gold); }
+.footer-tagline { font-size:0.6rem; line-height:2; letter-spacing:0.1em; max-width:220px; }
+.footer-col h4 {
+  font-size:0.55rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--cream); margin-bottom:1.5rem; font-weight:500;
+}
+.footer-col ul { list-style:none; }
+.footer-col ul li { margin-bottom:0.8rem; }
+.footer-col ul a {
+  text-decoration:none; color:rgba(245,240,232,0.5);
+  font-size:0.62rem; letter-spacing:0.1em; transition:color 0.3s;
+}
+.footer-col ul a:hover, .footer-col ul a:focus { color:var(--gold); }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:0.55rem; letter-spacing:0.1em;
+}
+.footer-social { display:flex; gap:1.5rem; }
+.footer-social a {
+  color:rgba(245,240,232,0.4); text-decoration:none;
+  font-size:0.55rem; letter-spacing:0.15em; transition:color 0.3s;
+}
+.footer-social a:hover, .footer-social a:focus { color:var(--gold); }
+.payment-badges {
+  display:flex; gap:0.6rem; align-items:center;
+  margin-top:1.5rem;
+}
+.payment-badge {
+  background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12);
+  border-radius:4px; padding:0.3rem 0.7rem;
+  font-size:0.5rem; letter-spacing:0.1em; color:rgba(245,240,232,0.5);
+  text-transform:uppercase;
+}
+.payment-badge.paypal { color:#00b2ff; border-color:rgba(0,178,255,0.3); }
+
+/* ===== CART DRAWER ===== */
+.cart-overlay {
+  position:fixed; inset:0; background:rgba(26,25,22,0.5);
+  z-index:300; opacity:0; pointer-events:none;
+  transition:opacity 0.35s ease;
+}
+.cart-overlay.open { opacity:1; pointer-events:all; }
+
+.cart-drawer {
+  position:fixed; top:0; right:-520px; bottom:0;
+  width:min(520px,100vw); background:var(--warm-white);
+  z-index:301; transition:right 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.cart-drawer.open { right:0; }
+
+.cart-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:2rem 2.5rem; border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.cart-title {
+  font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300;
+}
+.cart-close {
+  background:none; border:none; cursor:none;
+  font-size:1.4rem; color:var(--charcoal); opacity:0.5;
+  transition:opacity 0.2s; padding:0.5rem; line-height:1;
+}
+.cart-close:hover, .cart-close:focus { opacity:1; }
+
+.cart-body { flex:1; overflow-y:auto; padding:1.5rem 2.5rem; }
+
+.cart-empty {
+  text-align:center; padding:4rem 1rem;
+  font-family:'Cormorant Garamond',serif; font-size:1.2rem;
+  font-weight:300; color:var(--muted);
+}
+
+.cart-item {
+  display:grid; grid-template-columns:80px 1fr auto;
+  gap:1.2rem; align-items:center;
+  padding:1.2rem 0; border-bottom:1px solid var(--border);
+}
+.cart-item-img {
+  width:80px; height:100px; overflow:hidden; flex-shrink:0;
+}
+.cart-item-img-bg {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+}
+.cart-item-info { display:flex; flex-direction:column; gap:0.3rem; }
+.cart-item-name {
+  font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:400;
+}
+.cart-item-meta {
+  font-size:0.55rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);
+}
+.cart-item-price { font-size:0.75rem; font-weight:500; }
+.cart-item-remove {
+  background:none; border:none; cursor:none; opacity:0.4;
+  font-size:0.8rem; padding:0.3rem; transition:opacity 0.2s; color:var(--charcoal);
+}
+.cart-item-remove:hover, .cart-item-remove:focus { opacity:1; }
+.qty-control {
+  display:flex; align-items:center; gap:0.5rem; margin-top:0.5rem;
+}
+.qty-btn {
+  background:none; border:1px solid var(--border); width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.8rem; cursor:none; transition:all 0.2s; color:var(--charcoal);
+}
+.qty-btn:hover, .qty-btn:focus { border-color:var(--charcoal); background:var(--charcoal); color:var(--cream); }
+.qty-display { font-size:0.7rem; min-width:20px; text-align:center; }
+
+.cart-footer {
+  padding:1.5rem 2.5rem 2.5rem; border-top:1px solid var(--border);
+  flex-shrink:0; background:var(--warm-white);
+}
+.cart-subtotal {
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:0.5rem;
+}
+.cart-subtotal-label { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; }
+.cart-subtotal-value { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; }
+.cart-shipping-note {
+  font-size:0.55rem; letter-spacing:0.1em; color:var(--muted);
+  margin-bottom:1.5rem; text-align:right;
+}
+.btn-checkout {
+  width:100%; background:var(--charcoal); color:var(--cream); border:none;
+  padding:1.1rem; font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  cursor:none; transition:background 0.3s; margin-bottom:0.8rem;
+}
+.btn-checkout:hover, .btn-checkout:focus { background:var(--gold); }
+.btn-paypal-express {
+  width:100%; border:1px solid var(--border); background:var(--warm-white);
+  padding:0.9rem; cursor:none; transition:border-color 0.3s;
+  display:flex; align-items:center; justify-content:center; gap:0.6rem;
+}
+.btn-paypal-express:hover, .btn-paypal-express:focus { border-color:var(--charcoal); }
+.paypal-text { font-size:0.55rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+.paypal-logo-text {
+  font-size:0.85rem; font-weight:700; letter-spacing:-0.02em;
+}
+.pp-pay { color:#003087; }
+.pp-pal { color:#009cde; }
+
+/* ===== PRODUCT MODAL ===== */
+.modal-overlay {
+  position:fixed; inset:0; background:rgba(26,25,22,0.6);
+  z-index:400; opacity:0; pointer-events:none;
+  transition:opacity 0.3s; display:flex; align-items:center; justify-content:center;
+  padding:2rem;
+}
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.product-modal {
+  background:var(--warm-white); max-width:900px; width:100%;
+  max-height:90vh; overflow-y:auto;
+  display:grid; grid-template-columns:1fr 1fr;
+  transform:translateY(20px); transition:transform 0.3s;
+}
+.modal-overlay.open .product-modal { transform:translateY(0); }
+.modal-image {
+  min-height:500px; position:relative;
+}
+.modal-image-bg {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-content { padding:3rem; display:flex; flex-direction:column; gap:1.2rem; }
+.modal-close {
+  position:absolute; top:1rem; right:1rem; z-index:10;
+  background:rgba(245,240,232,0.9); border:none; width:36px; height:36px;
+  border-radius:50%; cursor:none; font-size:1rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s; color:var(--charcoal);
+}
+.modal-close:hover, .modal-close:focus { background:var(--cream); }
+.modal-material {
+  font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);
+}
+.modal-name {
+  font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; line-height:1.1;
+}
+.modal-price { font-size:1.1rem; letter-spacing:0.05em; font-weight:500; }
+.modal-desc {
+  font-size:0.65rem; line-height:2; letter-spacing:0.05em; color:var(--muted);
+}
+.size-label {
+  font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase;
+  margin-bottom:0.6rem; display:block;
+}
+.size-grid { display:flex; gap:0.5rem; flex-wrap:wrap; }
+.size-btn {
+  border:1px solid var(--border); background:transparent;
+  width:42px; height:42px; font-size:0.6rem; letter-spacing:0.05em;
+  cursor:none; transition:all 0.2s; color:var(--charcoal);
+}
+.size-btn:hover, .size-btn:focus { border-color:var(--charcoal); }
+.size-btn.selected { background:var(--charcoal); color:var(--cream); border-color:var(--charcoal); }
+.modal-add-btn {
+  background:var(--charcoal); color:var(--cream); border:none;
+  padding:1rem 2rem; font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  cursor:none; transition:background 0.3s; width:100%; margin-top:0.5rem;
+}
+.modal-add-btn:hover, .modal-add-btn:focus { background:var(--gold); }
+.modal-add-btn:disabled { opacity:0.4; cursor:not-allowed; }
+.size-error {
+  font-size:0.6rem; color:var(--error); letter-spacing:0.05em;
+  display:none; margin-top:-0.5rem;
+}
+
+/* ===== CHECKOUT PAGE ===== */
+.checkout-page {
+  display:none; position:fixed; inset:0;
+  background:var(--cream); z-index:500;
+  overflow-y:auto;
+}
+.checkout-page.open { display:block; }
+.checkout-inner {
+  max-width:1100px; margin:0 auto; padding:5rem 2rem 4rem;
+  display:grid; grid-template-columns:1.1fr 1fr; gap:5rem;
+  align-items:start;
+}
+.checkout-left { display:flex; flex-direction:column; gap:2.5rem; }
+.checkout-logo {
+  font-family:'Cormorant Garamond',serif; font-size:1.5rem;
+  font-weight:300; letter-spacing:0.15em; text-decoration:none; color:var(--charcoal);
+}
+.checkout-logo span { font-style:italic; color:var(--gold); }
+.checkout-back {
+  display:flex; align-items:center; gap:0.6rem;
+  background:none; border:none; cursor:none;
+  font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--muted); transition:color 0.2s; padding:0;
+}
+.checkout-back:hover, .checkout-back:focus { color:var(--charcoal); }
+.checkout-section-title {
+  font-family:'Cormorant Garamond',serif; font-size:1.4rem;
+  font-weight:300; margin-bottom:1.5rem;
+}
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.form-group { display:flex; flex-direction:column; gap:0.5rem; }
+.form-group.full { grid-column:1/-1; }
+.form-label {
+  font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);
+}
+.form-input {
+  background:var(--warm-white); border:1px solid var(--border);
+  padding:0.85rem 1rem; font-family:'Montserrat',sans-serif;
+  font-size:0.7rem; color:var(--charcoal); outline:none;
+  transition:border-color 0.2s;
+}
+.form-input:focus { border-color:var(--charcoal); }
+.form-input.error { border-color:var(--error); }
+.field-error { font-size:0.55rem; color:var(--error); display:none; }
+.field-error.show { display:block; }
+.form-select {
+  background:var(--warm-white); border:1px solid var(--border);
+  padding:0.85rem 1rem; font-family:'Montserrat',sans-serif;
+  font-size:0.7rem; color:var(--charcoal); outline:none;
+  appearance:none; cursor:pointer; transition:border-color 0.2s;
+}
+.form-select:focus { border-color:var(--charcoal); }
+
+.payment-section { margin-top:0.5rem; }
+.payment-methods {
+  display:flex; flex-direction:column; gap:1rem; margin-bottom:1.5rem;
+}
+.payment-method {
+  border:1px solid var(--border); padding:1.2rem 1.5rem;
+  cursor:pointer; transition:border-color 0.2s, background 0.2s;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.payment-method:hover { border-color:var(--muted); }
+.payment-method.selected { border-color:var(--charcoal); background:rgba(26,25,22,0.03); }
+.payment-method input[type=radio] { margin-right:0.8rem; accent-color:var(--charcoal); }
+.payment-method-label {
+  display:flex; align-items:center; gap:0.8rem;
+  font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; flex:1;
+}
+.payment-icon { font-size:1rem; }
+.paypal-method-logo { font-size:1rem; font-weight:700; }
+
+.card-fields { display:none; flex-direction:column; gap:1rem; margin-top:1rem; }
+.card-fields.show { display:flex; }
+.card-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+#paypal-button-container { margin-top:1rem; display:none; }
+#paypal-button-container.show { display:block; }
+
+.order-btn {
+  width:100%; background:var(--charcoal); color:var(--cream); border:none;
+  padding:1.1rem; font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  cursor:none; transition:background 0.3s; margin-top:1rem;
+}
+.order-btn:hover, .order-btn:focus { background:var(--gold); }
+
+.secure-note {
+  display:flex; align-items:center; gap:0.5rem;
+  font-size:0.55rem; letter-spacing:0.1em; color:var(--muted);
+  margin-top:1rem; justify-content:center;
+}
+
+/* Checkout Order Summary */
+.checkout-summary {
+  background:var(--warm-white); border:1px solid var(--border);
+  padding:2.5rem; position:sticky; top:5rem;
+}
+.summary-title {
+  font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300;
+  margin-bottom:2rem; padding-bottom:1rem; border-bottom:1px solid var(--border);
+}
+.summary-items { display:flex; flex-direction:column; gap:1rem; margin-bottom:1.5rem; }
+.summary-item {
+  display:flex; align-items:center; gap:1rem; position:relative;
+}
+.summary-item-img {
+  width:60px; height:75px; flex-shrink:0;
+  position:relative; overflow:hidden;
+}
+.summary-item-qty {
+  position:absolute; top:-6px; right:-6px;
+  background:var(--muted); color:var(--cream);
+  border-radius:50%; width:18px; height:18px;
+  font-size:0.5rem; display:flex; align-items:center; justify-content:center;
+}
+.summary-item-info { flex:1; }
+.summary-item-name {
+  font-family:'Cormorant Garamond',serif; font-size:0.9rem; font-weight:400;
+  margin-bottom:0.2rem;
+}
+.summary-item-meta {
+  font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);
+}
+.summary-item-price { font-size:0.7rem; font-weight:500; }
+.summary-divider { border:none; border-top:1px solid var(--border); margin:1rem 0; }
+.summary-row {
+  display:flex; justify-content:space-between;
+  font-size:0.65rem; letter-spacing:0.05em; margin-bottom:0.6rem;
+}
+.summary-row.total {
+  font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300;
+  margin-top:0.5rem; padding-top:0.8rem; border-top:1px solid var(--border);
+}
+.summary-row .label { color:var(--muted); }
+.discount-row { display:flex; gap:0.5rem; margin-top:1rem; }
+.discount-input {
+  flex:1; background:transparent; border:1px solid var(--border);
+  padding:0.7rem 1rem; font-family:'Montserrat',sans-serif;
+  font-size:0.6rem; color:var(--charcoal); outline:none;
+  transition:border-color 0.2s;
+}
+.discount-input:focus { border-color:var(--charcoal); }
+.discount-btn {
+  background:var(--charcoal); color:var(--cream); border:none;
+  padding:0.7rem 1.2rem; font-size:0.55rem; letter-spacing:0.15em;
+  text-transform:uppercase; cursor:none; transition:background 0.2s;
+}
+.discount-btn:hover, .discount-btn:focus { background:var(--gold); }
+
+/* ===== CONFIRMATION ===== */
+.confirmation-page {
+  display:none; position:fixed; inset:0;
+  background:var(--cream); z-index:600;
+  overflow-y:auto; text-align:center;
+}
+.confirmation-page.open { display:flex; align-items:center; justify-content:center; flex-direction:column; }
+.confirmation-inner { max-width:520px; padding:3rem 2rem; }
+.confirmation-icon { font-size:3rem; color:var(--gold); margin-bottom:1.5rem; }
+.confirmation-title {
+  font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300;
+  margin-bottom:1rem;
+}
+.confirmation-title em { font-style:italic; color:var(--gold); }
+.confirmation-text {
+  font-size:0.65rem; line-height:2; letter-spacing:0.08em;
+  color:var(--muted); margin-bottom:2.5rem;
+}
+.confirmation-order {
+  background:var(--warm-white); border:1px solid var(--border);
+  padding:1.5rem; margin-bottom:2.5rem;
+  font-size:0.65rem; letter-spacing:0.1em;
+}
+.confirmation-order strong { color:var(--charcoal); font-weight:500; }
+
+/* ===== TOAST ===== */
+.toast {
+  position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px);
+  background:var(--charcoal); color:var(--cream);
+  padding:0.85rem 2rem; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase;
+  z-index:1000; transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  white-space:nowrap; border-left:3px solid var(--gold);
+}
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.fade-up { opacity:0; animation:fadeUp 0.9s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+.delay-1{animation-delay:0.1s} .delay-2{animation-delay:0.25s}
+.delay-3{animation-delay:0.4s} .delay-4{animation-delay:0.55s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  nav { padding:1.2rem 1.5rem; }
+  .nav-links { display:none; }
+  .hero { grid-template-columns:1fr; }
+  .hero-right { height:50vw; }
+  .hero-left { padding:6rem 1.5rem 3rem; }
+  .collection-grid { grid-template-columns:1fr 1fr; }
+  .feature-strip { grid-template-columns:1fr 1fr; }
+  .editorial { grid-template-columns:1fr; margin:0 1.5rem 4rem; }
+  .insta-grid { grid-template-columns:repeat(3,1fr); }
+  .footer-top { grid-template-columns:1fr 1fr; gap:2rem; }
+  .collections { padding:4rem 1.5rem; }
+  .instagram-section { padding:0 1.5rem 4rem; }
+  .checkout-inner { grid-template-columns:1fr; gap:2rem; padding:4rem 1.5rem; }
+  .checkout-summary { position:static; }
+  .product-modal { grid-template-columns:1fr; }
+  .modal-image { min-height:280px; }
+}
+@media(max-width:600px){
+  .collection-grid { grid-template-columns:1fr; }
+  .insta-grid { grid-template-columns:repeat(2,1fr); }
+  .form-row,.card-row { grid-template-columns:1fr; }
+  .newsletter-form { flex-direction:column; }
+  .newsletter-input { border-right:1px solid rgba(245,240,232,0.2); border-bottom:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- SKIP LINKS for accessibility -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#cart-btn" class="skip-link">Skip to cart</a>
+
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ===== NAV ===== -->
+<nav role="navigation" aria-label="Main navigation">
+  <a href="#" class="nav-logo" aria-label="Aestréla — Return to homepage">aestr<span>é</span>la</a>
+  <ul class="nav-links" role="list">
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#editorial">Lookbook</a></li>
+    <li><a href="#editorial">Atelier</a></li>
+    <li><a href="#newsletter">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#newsletter" aria-label="Search">Search</a>
+    <a href="#" aria-label="My account">Account</a>
+    <button id="cart-btn" aria-label="Open shopping bag, 0 items" aria-expanded="false" aria-controls="cart-drawer">
+      Bag
+      <span class="cart-badge" id="cart-count" aria-hidden="true">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<main id="main-content">
+<section class="hero" aria-label="Hero — New Season Collection">
+  <div class="hero-left">
+    <p class="hero-eyebrow fade-up delay-1" aria-hidden="true">New Arrivals — SS 2025</p>
+    <h1 class="hero-title fade-up delay-2">
+      Dressed<br>in <em>starlight</em><br>and silence
+    </h1>
+    <p class="hero-sub fade-up delay-3">
+      Where luxury meets the celestial.<br>
+      Garments for those who move<br>through the world differently.
+    </p>
+    <div class="hero-cta fade-up delay-4">
+      <a href="#collections" class="btn-primary">Explore Collection</a>
+      <a href="#editorial" class="btn-ghost">Lookbook</a>
+    </div>
+  </div>
+  <div class="hero-right" aria-hidden="true">
+    <div class="hero-image-area">
+      <div class="hero-image-placeholder">
+        <div class="star-dec" style="top:15%;left:20%;animation-delay:0s" aria-hidden="true">✦</div>
+        <div class="star-dec" style="top:25%;right:25%;animation-delay:1.5s;font-size:0.5rem" aria-hidden="true">✦</div>
+        <div class="star-dec" style="top:10%;right:15%;animation-delay:3s;font-size:0.7rem" aria-hidden="true">✦</div>
+        <div class="star-dec" style="top:45%;left:12%;animation-delay:2s;font-size:0.4rem" aria-hidden="true">✦</div>
+        <svg viewBox="0 0 280 520" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;width:60%;max-width:280px;opacity:0.85;" aria-hidden="true" focusable="false">
+          <ellipse cx="140" cy="55" rx="28" ry="34" fill="#C9A96E" opacity="0.9"/>
+          <rect x="130" y="85" width="20" height="18" rx="4" fill="#C9A96E" opacity="0.9"/>
+          <path d="M95 100 Q85 140 80 200 Q75 270 78 340 Q80 400 85 460 Q87 480 100 490 L180 490 Q193 480 195 460 Q200 400 202 340 Q205 270 200 200 Q195 140 185 100 Q162 108 140 108 Q118 108 95 100Z" fill="#E8D5A3" opacity="0.15"/>
+          <path d="M95 100 Q85 140 80 200 Q75 270 78 340 Q80 400 85 460 Q87 480 100 490 L180 490 Q193 480 195 460 Q200 400 202 340 Q205 270 200 200 Q195 140 185 100" stroke="#C9A96E" stroke-width="1" fill="none" opacity="0.6"/>
+          <path d="M95 100 Q70 115 55 155 Q48 185 52 210 Q58 195 68 180 Q78 160 85 140" stroke="#C9A96E" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.7"/>
+          <path d="M185 100 Q210 115 225 155 Q232 185 228 210 Q222 195 212 180 Q202 160 195 140" stroke="#C9A96E" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.7"/>
+        </svg>
+        <div class="hero-number" aria-hidden="true">25</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section" aria-hidden="true" role="presentation">
+  <div class="marquee-track">
+    <span class="marquee-item">Luxury Womenswear <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Handcrafted in Italy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Sustainable Fabrics <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Spring — Summer 2025 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Free Shipping Worldwide <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Celestial Elegance <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Luxury Womenswear <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Handcrafted in Italy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Sustainable Fabrics <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Spring — Summer 2025 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Free Shipping Worldwide <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Celestial Elegance <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- ===== COLLECTIONS ===== -->
+<section class="collections" id="collections" aria-labelledby="collections-heading">
+  <div class="section-header">
+    <div>
+      <div class="section-label" aria-hidden="true">New Season</div>
+      <h2 class="section-title" id="collections-heading">The Stellar<br>Collection</h2>
+    </div>
+    <a href="#" class="section-link" aria-label="View all pieces in the collection">View All Pieces</a>
+  </div>
+
+  <div class="collection-grid" role="list" aria-label="Featured products">
+
+    <!-- Product 1 -->
+    <article class="product-card" role="listitem">
+      <div class="product-image">
+        <div class="product-image-bg bg-noir" aria-hidden="true">
+          <svg viewBox="0 0 340 453" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70%;height:90%;opacity:0.85;" aria-hidden="true" focusable="false">
+            <ellipse cx="170" cy="55" rx="28" ry="34" fill="#C9A96E" opacity="0.9"/>
+            <rect x="160" y="85" width="20" height="18" rx="4" fill="#C9A96E" opacity="0.9"/>
+            <path d="M115 103 Q90 150 82 230 Q76 300 80 390 L260 390 Q264 300 258 230 Q250 150 225 103 Q197 112 170 112 Q143 112 115 103Z" fill="#E8D5A3" opacity="0.12" stroke="#C9A96E" stroke-width="0.8"/>
+            <path d="M115 103 Q90 145 85 190" stroke="#C9A96E" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.75"/>
+            <path d="M225 103 Q250 145 255 190" stroke="#C9A96E" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.75"/>
+          </svg>
+        </div>
+        <span class="product-tag" aria-label="New arrival">New</span>
+        <div class="product-overlay" aria-hidden="true">
+          <button class="add-to-bag" onclick="openProductModal(0)" tabindex="-1" aria-hidden="true">Add to Bag</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-material">Silk Charmeuse</p>
+        <h3 class="product-name">
+          <button onclick="openProductModal(0)" style="background:none;border:none;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:none;padding:0;color:inherit;text-align:left;">Noctuelle Gown</button>
+        </h3>
+        <p class="product-price">£1,240</p>
+      </div>
+    </article>
+
+    <!-- Product 2 -->
+    <article class="product-card" role="listitem">
+      <div class="product-image">
+        <div class="product-image-bg bg-sand" aria-hidden="true">
+          <svg viewBox="0 0 250 333" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70%;height:90%;opacity:0.8;" aria-hidden="true" focusable="false">
+            <ellipse cx="125" cy="45" rx="22" ry="26" fill="#6b5a42" opacity="0.8"/>
+            <rect x="116" y="68" width="18" height="14" rx="3" fill="#6b5a42" opacity="0.8"/>
+            <path d="M85 80 Q70 110 68 170 Q66 220 70 295 L180 295 Q184 220 182 170 Q180 110 165 80 Q145 88 125 88 Q105 88 85 80Z" fill="#5c4a34" opacity="0.35" stroke="#7a6347" stroke-width="0.8"/>
+            <path d="M85 80 Q68 100 65 140" stroke="#6b5a42" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M165 80 Q182 100 185 140" stroke="#6b5a42" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="product-overlay" aria-hidden="true">
+          <button class="add-to-bag" onclick="openProductModal(1)" tabindex="-1" aria-hidden="true">Add to Bag</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-material">Cashmere Blend</p>
+        <h3 class="product-name">
+          <button onclick="openProductModal(1)" style="background:none;border:none;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:none;padding:0;color:inherit;text-align:left;">Lumière Coat</button>
+        </h3>
+        <p class="product-price">£890</p>
+      </div>
+    </article>
+
+    <!-- Product 3 -->
+    <article class="product-card" role="listitem">
+      <div class="product-image">
+        <div class="product-image-bg bg-slate" aria-hidden="true">
+          <svg viewBox="0 0 250 333" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70%;height:90%;opacity:0.85;" aria-hidden="true" focusable="false">
+            <ellipse cx="125" cy="45" rx="22" ry="26" fill="#C9A96E" opacity="0.9"/>
+            <rect x="116" y="68" width="18" height="14" rx="3" fill="#C9A96E" opacity="0.9"/>
+            <path d="M88 80 Q74 105 70 150 Q68 195 72 270 L178 270 Q182 195 180 150 Q176 105 162 80 Q143 87 125 87 Q107 87 88 80Z" fill="#E8D5A3" opacity="0.1" stroke="#C9A96E" stroke-width="0.8"/>
+            <path d="M88 80 Q72 98 68 130" stroke="#C9A96E" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.75"/>
+            <path d="M162 80 Q178 98 182 130" stroke="#C9A96E" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.75"/>
+          </svg>
+        </div>
+        <span class="product-tag" style="background:var(--charcoal);color:var(--cream);" aria-label="Limited availability">Limited</span>
+        <div class="product-overlay" aria-hidden="true">
+          <button class="add-to-bag" onclick="openProductModal(2)" tabindex="-1" aria-hidden="true">Add to Bag</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-material">Duchess Satin</p>
+        <h3 class="product-name">
+          <button onclick="openProductModal(2)" style="background:none;border:none;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:none;padding:0;color:inherit;text-align:left;">Étoile Midi Dress</button>
+        </h3>
+        <p class="product-price">£675</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="feature-strip" role="list" aria-label="Brand commitments">
+  <div class="feature-item" role="listitem">
+    <div class="feature-icon" aria-hidden="true">✦</div>
+    <div class="feature-label">Craftsmanship</div>
+    <div class="feature-desc">Every piece is made by hand in our Florence atelier</div>
+  </div>
+  <div class="feature-item" role="listitem">
+    <div class="feature-icon" aria-hidden="true">◇</div>
+    <div class="feature-label">Sustainability</div>
+    <div class="feature-desc">Certified natural fibres and zero-waste production</div>
+  </div>
+  <div class="feature-item" role="listitem">
+    <div class="feature-icon" aria-hidden="true">⊹</div>
+    <div class="feature-label">Bespoke Service</div>
+    <div class="feature-desc">Tailoring and monogramming available on request</div>
+  </div>
+  <div class="feature-item" role="listitem">
+    <div class="feature-icon" aria-hidden="true">◈</div>
+    <div class="feature-label">Worldwide Delivery</div>
+    <div class="feature-desc">Complimentary express shipping to over 90 countries</div>
+  </div>
+</div>
+
+<!-- EDITORIAL -->
+<section style="padding:8rem 0 4rem;" id="editorial" aria-labelledby="editorial-heading">
+  <div class="editorial">
+    <div class="editorial-image" aria-hidden="true">
+      <div class="editorial-image-bg">
+        <svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;" aria-hidden="true" focusable="false">
+          <defs>
+            <radialGradient id="editGrad" cx="50%" cy="40%" r="55%">
+              <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#0f0e0c" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="500" height="600" fill="url(#editGrad)"/>
+          <ellipse cx="250" cy="95" rx="42" ry="52" fill="#C9A96E" opacity="0.7"/>
+          <rect x="232" y="142" width="36" height="28" rx="6" fill="#C9A96E" opacity="0.7"/>
+          <path d="M165 165 Q140 230 132 330 Q125 420 132 580 L368 580 Q375 420 368 330 Q360 230 335 165 Q293 182 250 182 Q207 182 165 165Z" fill="#E8D5A3" opacity="0.08" stroke="#C9A96E" stroke-width="1"/>
+          <path d="M165 165 Q132 200 120 270" stroke="#C9A96E" stroke-width="22" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M335 165 Q368 200 380 270" stroke="#C9A96E" stroke-width="22" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <text x="80" y="120" fill="#C9A96E" opacity="0.25" font-size="16">✦</text>
+          <text x="400" y="180" fill="#C9A96E" opacity="0.15" font-size="10">✦</text>
+        </svg>
+      </div>
+    </div>
+    <div class="editorial-content">
+      <div class="section-label" style="margin-bottom:2rem;" aria-hidden="true">The Story</div>
+      <h2 id="editorial-heading" class="sr-only">Our Story</h2>
+      <blockquote class="editorial-quote">
+        "Fashion is the <strong>armour</strong> to survive the reality of everyday life."
+      </blockquote>
+      <p class="editorial-body">
+        Aestr&eacute;la was born from a belief that luxury clothing should feel like a second skin — weightless, intentional, alive. Founded in 2019, each collection is a conversation between the celestial and the earthly, between restraint and radiance.
+      </p>
+      <p class="editorial-body">
+        Our pieces are conceived in London, refined in Paris, and born in the hands of Florentine artisans who have passed their craft across generations.
+      </p>
+      <a href="#" class="btn-primary" style="align-self:flex-start;margin-top:1rem;">Our Atelier</a>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram-section" aria-labelledby="insta-heading">
+  <div class="section-header">
+    <div>
+      <div class="section-label" aria-hidden="true">Community</div>
+      <h2 class="section-title" id="insta-heading">@aestr&eacute;la</h2>
+    </div>
+    <a href="#" class="section-link" aria-label="Follow Aestréla on Instagram">Follow on Instagram</a>
+  </div>
+  <div class="insta-grid" role="list" aria-label="Instagram feed">
+    <div class="insta-tile" role="listitem">
+      <div class="insta-bg" style="background:linear-gradient(135deg,#1a1916,#2d2b25);display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+        <svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true"><ellipse cx="100" cy="60" rx="22" ry="26" fill="#C9A96E" opacity="0.7"/><path d="M65 90 Q55 130 58 195 L142 195 Q145 130 135 90 Q118 98 100 98 Q82 98 65 90Z" fill="#C9A96E" opacity="0.12" stroke="#C9A96E" stroke-width="0.8"/></svg>
+      </div>
+      <a href="#" class="insta-overlay" aria-label="View Instagram post 1">View Post</a>
+    </div>
+    <div class="insta-tile" role="listitem">
+      <div class="insta-bg" style="background:linear-gradient(135deg,#c8b99a,#b09070);" aria-hidden="true"></div>
+      <a href="#" class="insta-overlay" aria-label="View Instagram post 2">View Post</a>
+    </div>
+    <div class="insta-tile" role="listitem">
+      <div class="insta-bg" style="background:linear-gradient(135deg,#2a2720,#3d3a30);display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+        <svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true"><text x="100" y="115" text-anchor="middle" fill="#C9A96E" opacity="0.2" font-size="80" font-family="Georgia">✦</text></svg>
+      </div>
+      <a href="#" class="insta-overlay" aria-label="View Instagram post 3">View Post</a>
+    </div>
+    <div class="insta-tile" role="listitem">
+      <div class="insta-bg" style="background:linear-gradient(135deg,#d4c4a8,#c4ad88);" aria-hidden="true"></div>
+      <a href="#" class="insta-overlay" aria-label="View Instagram post 4">View Post</a>
+    </div>
+    <div class="insta-tile" role="listitem">
+      <div class="insta-bg" style="background:linear-gradient(135deg,#1e1c18,#0d0c0a);display:flex;align-items:center;justify-content:center;" aria-hidden="true">
+        <svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true"><ellipse cx="100" cy="65" rx="20" ry="24" fill="#C9A96E" opacity="0.6"/><path d="M68 90 Q60 125 62 190 L138 190 Q140 125 132 90 Q116 97 100 97 Q84 97 68 90Z" fill="#E8D5A3" opacity="0.1" stroke="#C9A96E" stroke-width="0.8"/></svg>
+      </div>
+      <a href="#" class="insta-overlay" aria-label="View Instagram post 5">View Post</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter" aria-labelledby="newsletter-heading">
+  <p class="newsletter-label" aria-hidden="true">The Inner Circle</p>
+  <h2 class="newsletter-title" id="newsletter-heading">First to the stars</h2>
+  <p class="newsletter-sub">New collections, private sales, and editorial notes — delivered to you first.</p>
+  <div class="newsletter-form" role="form" aria-label="Email newsletter signup">
+    <label for="newsletter-email" class="sr-only">Email address</label>
+    <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Your email address" autocomplete="email" required>
+    <button class="newsletter-btn" type="button" onclick="subscribeNewsletter()" aria-label="Subscribe to newsletter">Subscribe</button>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">aestr<span>é</span>la</div>
+      <p class="footer-tagline">Luxury womenswear for those who move through the world differently. Crafted with intention, worn with grace.</p>
+      <div class="payment-badges" aria-label="Accepted payment methods">
+        <span class="payment-badge paypal" aria-label="PayPal accepted">PayPal</span>
+        <span class="payment-badge" aria-label="Visa accepted">Visa</span>
+        <span class="payment-badge" aria-label="Mastercard accepted">MC</span>
+        <span class="payment-badge" aria-label="American Express accepted">Amex</span>
+        <span class="payment-badge" aria-label="Apple Pay accepted">Apple Pay</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collections</h4>
+      <ul>
+        <li><a href="#collections">New Arrivals</a></li>
+        <li><a href="#collections">Ready to Wear</a></li>
+        <li><a href="#collections">Evening Wear</a></li>
+        <li><a href="#collections">Accessories</a></li>
+        <li><a href="#collections">Archive</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Atelier</h4>
+      <ul>
+        <li><a href="#editorial">Our Story</a></li>
+        <li><a href="#editorial">Craftsmanship</a></li>
+        <li><a href="#editorial">Sustainability</a></li>
+        <li><a href="#editorial">Lookbook</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Client Services</h4>
+      <ul>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Shipping &amp; Returns</a></li>
+        <li><a href="#">Bespoke Orders</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Aestr&eacute;la. All rights reserved.</span>
+    <div class="footer-social" aria-label="Social media links">
+      <a href="#" aria-label="Follow Aestréla on Instagram">Instagram</a>
+      <a href="#" aria-label="Follow Aestréla on Pinterest">Pinterest</a>
+      <a href="#" aria-label="Follow Aestréla on TikTok">TikTok</a>
+    </div>
+    <span><a href="#" style="color:inherit">Privacy Policy</a> &middot; <a href="#" style="color:inherit">Terms</a></span>
+  </div>
+</footer>
+
+<!-- ===== CART DRAWER ===== -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping bag" aria-hidden="true">
+  <div class="cart-header">
+    <h2 class="cart-title">Your Bag</h2>
+    <button class="cart-close" id="cart-close-btn" onclick="closeCart()" aria-label="Close shopping bag">&times;</button>
+  </div>
+  <div class="cart-body" id="cart-body" aria-live="polite">
+    <p class="cart-empty" id="cart-empty-msg">Your bag is empty.</p>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Subtotal</span>
+      <span class="cart-subtotal-value" id="cart-subtotal">£0</span>
+    </div>
+    <p class="cart-shipping-note">Shipping calculated at checkout</p>
+    <button class="btn-checkout" onclick="openCheckout()" aria-label="Proceed to checkout">Checkout</button>
+    <button class="btn-paypal-express" onclick="openCheckout('paypal')" aria-label="Express checkout with PayPal">
+      <span class="paypal-text">Express with</span>
+      <span class="paypal-logo-text"><span class="pp-pay">Pay</span><span class="pp-pal">Pal</span></span>
+    </button>
+  </div>
+</aside>
+
+<!-- ===== PRODUCT MODAL ===== -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-product-name" aria-hidden="true">
+  <div class="product-modal" id="product-modal">
+    <div class="modal-image" style="position:relative">
+      <div class="modal-image-bg" id="modal-image-bg"></div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close product detail">&times;</button>
+    </div>
+    <div class="modal-content">
+      <p class="modal-material" id="modal-material"></p>
+      <h2 class="modal-name" id="modal-product-name"></h2>
+      <p class="modal-price" id="modal-price"></p>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div>
+        <span class="size-label" id="size-label">Select Size</span>
+        <div class="size-grid" id="size-grid" role="group" aria-labelledby="size-label"></div>
+        <p class="size-error" id="size-error" role="alert">Please select a size to continue.</p>
+      </div>
+      <button class="modal-add-btn" id="modal-add-btn" onclick="addToCartFromModal()" aria-label="Add selected item to bag">Add to Bag</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT PAGE ===== -->
+<div class="checkout-page" id="checkout-page" role="main" aria-label="Checkout">
+  <div class="checkout-inner">
+    <div class="checkout-left">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <a href="#" class="checkout-logo" onclick="closeCheckout();return false;">aestr<span>é</span>la</a>
+        <button class="checkout-back" onclick="closeCheckout()" aria-label="Return to shopping bag">
+          &#8592; Back to Bag
+        </button>
+      </div>
+
+      <!-- Contact -->
+      <section aria-labelledby="contact-heading">
+        <h2 class="checkout-section-title" id="contact-heading">Contact</h2>
+        <div class="form-row">
+          <div class="form-group full">
+            <label class="form-label" for="email">Email address</label>
+            <input class="form-input" type="email" id="email" name="email" autocomplete="email" required placeholder="your@email.com" aria-required="true">
+            <span class="field-error" id="email-error">Please enter a valid email address.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shipping -->
+      <section aria-labelledby="shipping-heading">
+        <h2 class="checkout-section-title" id="shipping-heading">Shipping Address</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="first-name">First name</label>
+            <input class="form-input" type="text" id="first-name" autocomplete="given-name" required aria-required="true" placeholder="Marie">
+            <span class="field-error" id="fname-error">Required.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="last-name">Last name</label>
+            <input class="form-input" type="text" id="last-name" autocomplete="family-name" required aria-required="true" placeholder="Laurent">
+            <span class="field-error" id="lname-error">Required.</span>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="address">Address</label>
+            <input class="form-input" type="text" id="address" autocomplete="street-address" required aria-required="true" placeholder="12 Rue de la Paix">
+            <span class="field-error" id="address-error">Required.</span>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="address2">Apartment, suite, etc. (optional)</label>
+            <input class="form-input" type="text" id="address2" autocomplete="address-line2" placeholder="Apt 4B">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="city">City</label>
+            <input class="form-input" type="text" id="city" autocomplete="address-level2" required aria-required="true" placeholder="Paris">
+            <span class="field-error" id="city-error">Required.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="postcode">Postcode</label>
+            <input class="form-input" type="text" id="postcode" autocomplete="postal-code" required aria-required="true" placeholder="75001">
+            <span class="field-error" id="postcode-error">Required.</span>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="country">Country</label>
+            <select class="form-select form-input" id="country" autocomplete="country" required aria-required="true">
+              <option value="">Select country</option>
+              <option value="GB" selected>United Kingdom</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+              <option value="IT">Italy</option>
+              <option value="US">United States</option>
+              <option value="AE">United Arab Emirates</option>
+              <option value="JP">Japan</option>
+              <option value="AU">Australia</option>
+              <option value="CA">Canada</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Payment -->
+      <section class="payment-section" aria-labelledby="payment-heading">
+        <h2 class="checkout-section-title" id="payment-heading">Payment</h2>
+        <div class="payment-methods" role="radiogroup" aria-labelledby="payment-heading">
+
+          <label class="payment-method selected" id="pm-card" onclick="selectPayment('card')">
+            <input type="radio" name="payment" value="card" checked aria-label="Pay by credit or debit card">
+            <span class="payment-method-label">
+              <span class="payment-icon" aria-hidden="true">💳</span>
+              Credit / Debit Card
+            </span>
+            <span style="font-size:0.55rem;letter-spacing:0.1em;color:var(--muted)">Visa · MC · Amex</span>
+          </label>
+
+          <label class="payment-method" id="pm-paypal" onclick="selectPayment('paypal')">
+            <input type="radio" name="payment" value="paypal" aria-label="Pay with PayPal">
+            <span class="payment-method-label">
+              <span class="paypal-logo-text paypal-method-logo" aria-hidden="true"><span class="pp-pay">Pay</span><span class="pp-pal">Pal</span></span>
+              PayPal
+            </span>
+            <span style="font-size:0.55rem;letter-spacing:0.1em;color:var(--muted)">Fast &amp; Secure</span>
+          </label>
+
+        </div>
+
+        <!-- Card fields -->
+        <div class="card-fields show" id="card-fields" aria-label="Card payment details">
+          <div class="form-group">
+            <label class="form-label" for="card-number">Card number</label>
+            <input class="form-input" type="text" id="card-number" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" maxlength="19" aria-required="true">
+            <span class="field-error" id="card-error">Please enter a valid card number.</span>
+          </div>
+          <div class="card-row">
+            <div class="form-group">
+              <label class="form-label" for="card-expiry">Expiry date</label>
+              <input class="form-input" type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp" aria-required="true">
+              <span class="field-error" id="expiry-error">Required.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="card-cvv">Security code (CVV)</label>
+              <input class="form-input" type="text" id="card-cvv" inputmode="numeric" placeholder="CVV" maxlength="4" autocomplete="cc-csc" aria-required="true">
+              <span class="field-error" id="cvv-error">Required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="card-name">Name on card</label>
+            <input class="form-input" type="text" id="card-name" autocomplete="cc-name" placeholder="Marie Laurent" aria-required="true">
+          </div>
+          <button class="order-btn" onclick="placeOrder()" id="order-btn" aria-label="Place order and complete purchase">Place Order</button>
+        </div>
+
+        <!-- PayPal button container -->
+        <div id="paypal-button-container" aria-label="PayPal checkout" aria-live="polite"></div>
+
+        <p class="secure-note" aria-label="Secure checkout information">
+          <span aria-hidden="true">🔒</span>
+          All transactions are encrypted and secure
+        </p>
+      </section>
+    </div>
+
+    <!-- Order Summary -->
+    <aside class="checkout-summary" aria-labelledby="summary-heading">
+      <h2 class="summary-title" id="summary-heading">Order Summary</h2>
+      <div class="summary-items" id="summary-items" aria-live="polite"></div>
+      <hr class="summary-divider">
+      <div class="summary-row"><span class="label">Subtotal</span><span id="summary-subtotal">£0</span></div>
+      <div class="summary-row"><span class="label">Shipping</span><span id="summary-shipping">Free</span></div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="summary-total">£0</span>
+      </div>
+      <div class="discount-row" role="form" aria-label="Discount code">
+        <label for="discount-code" class="sr-only">Discount code</label>
+        <input class="discount-input" type="text" id="discount-code" placeholder="Discount code" aria-label="Enter discount code">
+        <button class="discount-btn" onclick="applyDiscount()" aria-label="Apply discount code">Apply</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- ===== CONFIRMATION PAGE ===== -->
+<div class="confirmation-page" id="confirmation-page" role="main" aria-label="Order confirmation" aria-live="polite">
+  <div class="confirmation-inner">
+    <div class="confirmation-icon" aria-hidden="true">✦</div>
+    <h1 class="confirmation-title">Thank <em>you</em></h1>
+    <p class="confirmation-text">
+      Your order has been placed and is being prepared with care in our Florence atelier.<br>
+      A confirmation has been sent to your email address.
+    </p>
+    <div class="confirmation-order" aria-label="Order details">
+      Order <strong id="confirmation-order-num">#AE-00001</strong><br>
+      Estimated delivery: <strong>5–7 business days</strong>
+    </div>
+    <button class="btn-primary" onclick="closeConfirmation()" aria-label="Continue shopping">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- Visually hidden class for screen readers -->
+<style>
+.sr-only {
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+</style>
+
+<script>
+// ===== PRODUCT DATA =====
+const products = [
+  {
+    id:0, name:'Noctuelle Gown', material:'Silk Charmeuse', price:1240,
+    desc:'A floor-length gown crafted from the finest Italian silk charmeuse. The draped silhouette moves with an otherworldly fluidity, its deep noir hue absorbing light like the night sky. Fully lined in silk charmeuse. Back zip fastening.',
+    bg:'linear-gradient(160deg,#1e1d1a 0%,#111009 100%)',
+    sizes:['XS','S','M','L','XL'],
+    tag:'New'
+  },
+  {
+    id:1, name:'Lumière Coat', material:'Cashmere Blend', price:890,
+    desc:'A structured oversized coat woven from a cashmere and wool blend. The warm sand palette evokes the first light of morning. Features a single-button closure, deep pockets, and a back vent. Dry clean only.',
+    bg:'linear-gradient(160deg,#d4c4a8 0%,#bfad90 100%)',
+    sizes:['XS','S','M','L','XL'],
+    tag:null
+  },
+  {
+    id:2, name:'Étoile Midi Dress', material:'Duchess Satin', price:675,
+    desc:'A sculptural midi dress rendered in duchess satin. The deep charcoal tone and architectural seaming lend an evening gravitas, while the midi length offers effortless versatility. Concealed side zip. Limited edition.',
+    bg:'linear-gradient(160deg,#3a3830 0%,#2a2822 100%)',
+    sizes:['XS','S','M','L'],
+    tag:'Limited'
+  }
+];
+
+// ===== CART STATE =====
+let cart = [];
+let selectedSize = null;
+let currentProduct = null;
+let paymentMethod = 'card';
+let discount = 0;
+
+// ===== CUSTOM CURSOR =====
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left=mx-4+'px'; cursor.style.top=my-4+'px';
+});
+function animateRing(){
+  rx+=(mx-rx-16)*0.12; ry+=(my-ry-16)*0.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.addEventListener('mouseover',e=>{
+  if(e.target.matches('a,button,[role=button],.product-card,.insta-tile,.size-btn,.payment-method')){
+    cursor.style.transform='scale(2.5)';
+    ring.style.transform='translate(-12px,-12px) scale(1.5)';
+    ring.style.borderColor='#C9A96E';
+  }
+});
+document.addEventListener('mouseout',e=>{
+  if(e.target.matches('a,button,[role=button],.product-card,.insta-tile,.size-btn,.payment-method')){
+    cursor.style.transform='scale(1)';
+    ring.style.transform='translate(-12px,-12px) scale(1)';
+    ring.style.borderColor='#1A1916';
+  }
+});
+
+// ===== TOAST =====
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ===== CART =====
+function updateCartUI(){
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent=count;
+  document.getElementById('cart-btn').setAttribute('aria-label',`Open shopping bag, ${count} item${count!==1?'s':''}`);
+
+  const body=document.getElementById('cart-body');
+  const footer=document.getElementById('cart-footer');
+  const emptyMsg=document.getElementById('cart-empty-msg');
+
+  if(cart.length===0){
+    body.innerHTML=''; body.appendChild(emptyMsg);
+    emptyMsg.style.display='block';
+    footer.style.display='none';
+    return;
+  }
+  emptyMsg.style.display='none';
+  footer.style.display='block';
+
+  const items=cart.map(item=>`
+    <div class="cart-item" role="listitem">
+      <div class="cart-item-img">
+        <div class="cart-item-img-bg" style="background:${item.bg};width:100%;height:100%;" aria-hidden="true"></div>
+      </div>
+      <div class="cart-item-info">
+        <p class="cart-item-name">${item.name}</p>
+        <p class="cart-item-meta">${item.material} · Size ${item.size}</p>
+        <div class="qty-control" role="group" aria-label="Quantity for ${item.name}">
+          <button class="qty-btn" onclick="changeQty(${item.id},'${item.size}',-1)" aria-label="Decrease quantity of ${item.name}">−</button>
+          <span class="qty-display" aria-label="Quantity: ${item.qty}">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id},'${item.size}',1)" aria-label="Increase quantity of ${item.name}">+</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;">
+        <p class="cart-item-price">£${(item.price*item.qty).toLocaleString()}</p>
+        <button class="cart-item-remove" onclick="removeFromCart(${item.id},'${item.size}')" aria-label="Remove ${item.name} size ${item.size} from bag">✕</button>
+      </div>
+    </div>
+  `).join('');
+
+  body.innerHTML=items;
+  const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('cart-subtotal').textContent='£'+subtotal.toLocaleString();
+}
+
+function openCart(){
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-drawer').setAttribute('aria-hidden','false');
+  document.getElementById('cart-btn').setAttribute('aria-expanded','true');
+  document.getElementById('cart-close-btn').focus();
+  document.body.style.overflow='hidden';
+}
+
+function closeCart(){
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('cart-drawer').setAttribute('aria-hidden','true');
+  document.getElementById('cart-btn').setAttribute('aria-expanded','false');
+  document.getElementById('cart-btn').focus();
+  document.body.style.overflow='';
+}
+
+function changeQty(id,size,delta){
+  const item=cart.find(i=>i.id===id&&i.size===size);
+  if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0) removeFromCart(id,size);
+  else updateCartUI();
+}
+
+function removeFromCart(id,size){
+  cart=cart.filter(i=>!(i.id===id&&i.size===size));
+  updateCartUI();
+  showToast('Item removed from bag');
+}
+
+document.getElementById('cart-btn').onclick=()=>{
+  if(document.getElementById('cart-drawer').classList.contains('open')) closeCart();
+  else openCart();
+};
+
+// Keyboard trap in cart drawer
+document.getElementById('cart-drawer').addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeCart();
+});
+
+// ===== PRODUCT MODAL =====
+function openProductModal(productId){
+  const p=products[productId];
+  currentProduct=p;
+  selectedSize=null;
+
+  document.getElementById('modal-material').textContent=p.material;
+  document.getElementById('modal-product-name').textContent=p.name;
+  document.getElementById('modal-price').textContent='£'+p.price.toLocaleString();
+  document.getElementById('modal-desc').textContent=p.desc;
+  document.getElementById('modal-image-bg').style.cssText=`position:absolute;inset:0;background:${p.bg};display:flex;align-items:center;justify-content:center;`;
+
+  const grid=document.getElementById('size-grid');
+  grid.innerHTML=p.sizes.map(s=>`
+    <button class="size-btn" onclick="selectSize('${s}')" aria-pressed="false" aria-label="Select size ${s}">${s}</button>
+  `).join('');
+
+  document.getElementById('size-error').style.display='none';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal-overlay').setAttribute('aria-hidden','false');
+  document.querySelector('.modal-close').focus();
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('modal-overlay').setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+
+function selectSize(size){
+  selectedSize=size;
+  document.querySelectorAll('.size-btn').forEach(btn=>{
+    const isSelected=btn.textContent===size;
+    btn.classList.toggle('selected',isSelected);
+    btn.setAttribute('aria-pressed',isSelected?'true':'false');
+  });
+  document.getElementById('size-error').style.display='none';
+}
+
+function addToCartFromModal(){
+  if(!selectedSize){
+    document.getElementById('size-error').style.display='block';
+    document.getElementById('size-error').focus();
+    return;
+  }
+  const p=currentProduct;
+  const existing=cart.find(i=>i.id===p.id&&i.size===selectedSize);
+  if(existing) existing.qty++;
+  else cart.push({id:p.id,name:p.name,material:p.material,price:p.price,size:selectedSize,bg:p.bg,qty:1});
+  updateCartUI();
+  closeModal();
+  showToast(`${p.name} added to your bag`);
+}
+
+document.getElementById('modal-overlay').addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeModal();
+});
+document.getElementById('modal-overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modal-overlay')) closeModal();
+});
+
+// ===== CHECKOUT =====
+function openCheckout(method){
+  if(cart.length===0){ showToast('Your bag is empty'); return; }
+  closeCart();
+  document.getElementById('checkout-page').classList.add('open');
+  document.body.style.overflow='hidden';
+  buildSummary();
+  if(method==='paypal') selectPayment('paypal');
+  document.getElementById('email').focus();
+  initPayPal();
+}
+
+function closeCheckout(){
+  document.getElementById('checkout-page').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function buildSummary(){
+  const items=cart.map(item=>`
+    <div class="summary-item">
+      <div class="summary-item-img">
+        <div style="background:${item.bg};width:100%;height:100%;"></div>
+        <span class="summary-item-qty" aria-label="Quantity: ${item.qty}">${item.qty}</span>
+      </div>
+      <div class="summary-item-info">
+        <p class="summary-item-name">${item.name}</p>
+        <p class="summary-item-meta">${item.material} · Size ${item.size}</p>
+      </div>
+      <p class="summary-item-price">£${(item.price*item.qty).toLocaleString()}</p>
+    </div>
+  `).join('');
+  document.getElementById('summary-items').innerHTML=items;
+  updateSummaryTotals();
+}
+
+function updateSummaryTotals(){
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const discounted=Math.max(0,sub-discount);
+  document.getElementById('summary-subtotal').textContent='£'+sub.toLocaleString();
+  document.getElementById('summary-total').textContent='£'+discounted.toLocaleString();
+  document.getElementById('summary-shipping').textContent=discounted>=500?'Free':'£15';
+}
+
+function selectPayment(method){
+  paymentMethod=method;
+  document.getElementById('pm-card').classList.toggle('selected',method==='card');
+  document.getElementById('pm-paypal').classList.toggle('selected',method==='paypal');
+  document.getElementById('card-fields').classList.toggle('show',method==='card');
+  const ppContainer=document.getElementById('paypal-button-container');
+  ppContainer.classList.toggle('show',method==='paypal');
+  document.querySelector('[name=payment][value='+method+']').checked=true;
+}
+
+// ===== PAYPAL INTEGRATION =====
+let paypalInitialized=false;
+function initPayPal(){
+  if(paypalInitialized) return;
+  if(typeof paypal==='undefined'){ console.warn('PayPal SDK not loaded'); return; }
+
+  paypal.Buttons({
+    style:{ layout:'vertical', color:'gold', shape:'rect', label:'paypal', height:45 },
+    createOrder:(data,actions)=>{
+      const total=cart.reduce((s,i)=>s+i.price*i.qty,0)-discount;
+      return actions.order.create({
+        purchase_units:[{
+          description:'Aestréla Order',
+          amount:{
+            currency_code:'GBP',
+            value:Math.max(0,total).toFixed(2),
+            breakdown:{
+              item_total:{currency_code:'GBP',value:Math.max(0,total).toFixed(2)}
+            }
+          },
+          items:cart.map(i=>({
+            name:i.name+' (Size '+i.size+')',
+            unit_amount:{currency_code:'GBP',value:i.price.toFixed(2)},
+            quantity:i.qty.toString()
+          }))
+        }],
+        application_context:{ brand_name:'Aestréla', shipping_preference:'GET_FROM_FILE' }
+      });
+    },
+    onApprove:(data,actions)=>{
+      return actions.order.capture().then(details=>{
+        cart=[];
+        updateCartUI();
+        closeCheckout();
+        showConfirmation(details.id||'AE-PP'+Date.now());
+      });
+    },
+    onError:err=>{ console.error(err); showToast('PayPal error. Please try again.'); }
+  }).render('#paypal-button-container');
+
+  paypalInitialized=true;
+}
+
+// ===== FORM VALIDATION & ORDER =====
+function validateField(id,errorId,condition){
+  const field=document.getElementById(id);
+  const error=document.getElementById(errorId);
+  if(!condition(field.value)){
+    field.classList.add('error');
+    if(error){error.classList.add('show');}
+    return false;
+  }
+  field.classList.remove('error');
+  if(error){error.classList.remove('show');}
+  return true;
+}
+
+function formatCardNumber(e){
+  let val=e.target.value.replace(/\D/g,'').substring(0,16);
+  e.target.value=val.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExpiry(e){
+  let val=e.target.value.replace(/\D/g,'').substring(0,4);
+  if(val.length>=2) val=val.substring(0,2)+' / '+val.substring(2);
+  e.target.value=val;
+}
+
+document.getElementById('card-number').addEventListener('input',formatCardNumber);
+document.getElementById('card-expiry').addEventListener('input',formatExpiry);
+document.getElementById('card-cvv').addEventListener('input',e=>{
+  e.target.value=e.target.value.replace(/\D/g,'').substring(0,4);
+});
+
+function placeOrder(){
+  let valid=true;
+  valid=validateField('email','email-error',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))&&valid;
+  valid=validateField('first-name','fname-error',v=>v.trim().length>0)&&valid;
+  valid=validateField('last-name','lname-error',v=>v.trim().length>0)&&valid;
+  valid=validateField('address','address-error',v=>v.trim().length>0)&&valid;
+  valid=validateField('city','city-error',v=>v.trim().length>0)&&valid;
+  valid=validateField('postcode','postcode-error',v=>v.trim().length>0)&&valid;
+  valid=validateField('card-number','card-error',v=>v.replace(/\s/g,'').length===16)&&valid;
+  valid=validateField('card-expiry','expiry-error',v=>v.length>=4)&&valid;
+  valid=validateField('card-cvv','cvv-error',v=>v.length>=3)&&valid;
+  if(!valid){ showToast('Please complete all required fields'); return; }
+
+  const btn=document.getElementById('order-btn');
+  btn.textContent='Processing…'; btn.disabled=true;
+  setTimeout(()=>{
+    const orderId='AE-'+Math.floor(10000+Math.random()*90000);
+    cart=[]; updateCartUI(); closeCheckout();
+    showConfirmation(orderId);
+    btn.textContent='Place Order'; btn.disabled=false;
+  },1800);
+}
+
+// ===== DISCOUNT =====
+const DISCOUNT_CODES={'STARS10':10,'CELESTIAL20':20,'WELCOME15':15};
+function applyDiscount(){
+  const code=document.getElementById('discount-code').value.trim().toUpperCase();
+  if(DISCOUNT_CODES[code]){
+    const pct=DISCOUNT_CODES[code];
+    const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+    discount=Math.round(sub*pct/100);
+    showToast(`${pct}% discount applied — £${discount} off!`);
+    updateSummaryTotals();
+  } else {
+    showToast('Invalid discount code');
+  }
+}
+
+// ===== CONFIRMATION =====
+function showConfirmation(orderId){
+  document.getElementById('confirmation-order-num').textContent='#'+orderId;
+  document.getElementById('confirmation-page').classList.add('open');
+  document.body.style.overflow='hidden';
+  discount=0;
+}
+function closeConfirmation(){
+  document.getElementById('confirmation-page').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ===== NEWSLETTER =====
+function subscribeNewsletter(){
+  const input=document.getElementById('newsletter-email');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)){
+    showToast('Please enter a valid email'); return;
+  }
+  showToast('Welcome to the inner circle ✦');
+  input.value='';
+}
+
+// ===== SCROLL ANIMATIONS =====
+const scrollObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.style.opacity='1';
+      entry.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.product-card,.feature-item,.editorial,.insta-tile').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(24px)';
+  el.style.transition='opacity 0.8s ease,transform 0.8s ease';
+  scrollObserver.observe(el);
+});
+
+// ===== KEYBOARD NAVIGATION =====
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('checkout-page').classList.contains('open')) closeCheckout();
+    if(document.getElementById('modal-overlay').classList.contains('open')) closeModal();
+    if(document.getElementById('cart-drawer').classList.contains('open')) closeCart();
+    if(document.getElementById('confirmation-page').classList.contains('open')) closeConfirmation();
+  }
+});
+</script>
+</body>
+</html>
